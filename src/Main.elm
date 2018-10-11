@@ -2,6 +2,7 @@ module Main exposing (..)
 
 import Browser
 import Html exposing (..)
+import Html.Attributes exposing (..)
 
 -- MAIN
 
@@ -56,7 +57,10 @@ update message model =
 view : Model -> Browser.Document Msg
 view model =
   { title = "Elm Tic Tic Toe"
-  , body = [ Html.div [] <| renderBoard model.board ]
+  , body =
+      [ div [ class "game" ]
+        [ div [ class "board"] <| renderBoard model.board ]
+      ]
   }
 
 renderBoard : Board -> List (Html Msg)
@@ -66,7 +70,7 @@ renderBoard board =
 
 renderCell : Int -> Html Msg
 renderCell cell =
-  p [] [ text (String.fromInt cell) ]
+  div [ class "cell" ] [ text (String.fromInt cell) ]
 
 
 -- SUBSCRIPTIONS
