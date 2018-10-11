@@ -1,7 +1,7 @@
 module Main exposing (..)
 
 import Browser
-import Html
+import Html exposing (..)
 
 -- MAIN
 
@@ -33,8 +33,11 @@ initialModel =
 type alias Model =
   { game_state : String
   , current_player : String
-  , board : List Int
+  , board : Board
   }
+
+type alias Board =
+  List Int
 
 
 -- UPDATE
@@ -53,8 +56,17 @@ update message model =
 view : Model -> Browser.Document Msg
 view model =
   { title = "Elm Tic Tic Toe"
-  , body = [ Html.div [] [ Html.text "Hello, world" ] ]
+  , body = [ Html.div [] <| renderBoard model.board ]
   }
+
+renderBoard : Board -> List (Html Msg)
+renderBoard board =
+  board
+    |> List.map renderCell
+
+renderCell : Int -> Html Msg
+renderCell cell =
+  p [] [ text (String.fromInt cell) ]
 
 
 -- SUBSCRIPTIONS
